@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "D3GraphPayload",
+  "type": "object",
+  "properties": {
+    "directed": { "type": "boolean" },
+    "multigraph": { "type": "boolean" },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "type": { "type": "string", "enum": ["PROJECT", "SCHOOL", "STATE", "CONTRADICTION", "RULE"] },
+          "properties": { "type": "object" }
+        },
+        "required": ["id", "label", "type"]
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "relation": { "type": "string" },
+          "confidence": { "type": "number" }
+        },
+        "required": ["source", "target", "relation"]
+      }
+    }
+  },
+  "required": ["nodes", "links"]
+}

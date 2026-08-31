@@ -1,0 +1,18 @@
+# Backend dependencies for MEEV
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.6.0
+sqlalchemy>=2.0.25
+psycopg2-binary>=2.9.9
+geoalchemy2>=0.14.3
+shapely>=2.0.2
+jellyfish>=1.0.3
+geopy>=2.4.1
+pandas>=2.2.0
+networkx>=3.2.1
+reportlab>=4.1.0
+pytest>=8.0.0
+pytest-asyncio>=0.23.5
+httpx>=0.26.0
+requests>=2.31.0
+python-multipart>=0.0.9

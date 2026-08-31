@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: meev_database
+    environment:
+      POSTGRES_DB: meev_core
+      POSTGRES_USER: meev_admin
+      POSTGRES_PASSWORD: meev_secure_password_2026
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U meev_admin -d meev_core"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: meev_backend
+    environment:
+      DATABASE_URL: postgresql://meev_admin:meev_secure_password_2026@database:5432/meev_core
+    ports:
+      - "8000:8000"
+    depends_on:
+      database:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: meev_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api/v1
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

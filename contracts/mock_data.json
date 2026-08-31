@@ -1,0 +1,361 @@
+{
+  "cases": [
+    {
+      "case_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "project_id": "PRJ-2023-04567",
+      "mp_id": "MP-LS-HP-02",
+      "school_name": "Government High School Rampur",
+      "udise_code": "02120100402",
+      "sanction_cost": 1240000.0,
+      "canonical_asset_type": "ADDITIONAL_CLASSROOM",
+      "target_quantity": 2,
+      "recommendation_date": "2023-04-01",
+      "sanction_date": "2023-04-15",
+      "completion_date": "2023-05-08",
+      "ipi_score": 82.0,
+      "ipi_lower": 74.0,
+      "ipi_upper": 90.0,
+      "risk_tier": 3,
+      "primary_category": "COMPOUND_REFLECTION_AND_VELOCITY_GAP",
+      "status": "PENDING_REVIEW",
+      "created_at": "2024-08-16T10:30:00Z",
+      "lane_scores": {
+        "STATUTORY": {
+          "score": 0.0,
+          "violations": []
+        },
+        "INSTITUTIONAL_NEED": {
+          "score": 0.45,
+          "metrics": {
+            "latest_scr": 4.4,
+            "3yr_enrollment_growth": -0.52
+          }
+        },
+        "ASSET_REFLECTION": {
+          "score": 0.90,
+          "status": "CRITICAL_REFLECTION_GAP",
+          "observed_delta": 0,
+          "expected_delta": 2
+        },
+        "TIMELINE_PHYSICS": {
+          "score": 0.95,
+          "violation": "PHYSICALLY_IMPOSSIBLE_DURATION (23 days vs min 45d)",
+          "duration_days": 23
+        }
+      },
+      "exception_adjustments": [],
+      "project_details": {
+        "project_id": "PRJ-2023-04567",
+        "mp_id": "MP-LS-HP-02",
+        "district_lgd_code": 12,
+        "work_description_raw": "Construction of 2 Additional Class rooms at GHS Rampur Block-1",
+        "sanction_cost": 1240000.0,
+        "recommendation_date": "2023-04-01",
+        "sanction_date": "2023-04-15",
+        "completion_date": "2023-05-08",
+        "canonical_asset_type": "ADDITIONAL_CLASSROOM",
+        "target_quantity": 2,
+        "latitude": 31.1423,
+        "longitude": 77.1724,
+        "resolved_udise_code": "02120100402",
+        "resolution_confidence": 0.92,
+        "resolution_status": "AUTO_ACCEPTED"
+      },
+      "school_details": {
+        "udise_code": "02120100402",
+        "name_canonical": "Government High School Rampur",
+        "state_lgd_code": 2,
+        "district_lgd_code": 12,
+        "block_lgd_code": 101,
+        "village_name": "Rampur",
+        "management_category": "GOVERNMENT",
+        "operational_status": "OPERATIONAL",
+        "latitude": 31.1421,
+        "longitude": 77.1722
+      },
+      "evidence_graph": {
+        "directed": true,
+        "multigraph": false,
+        "nodes": [
+          {
+            "id": "project:PRJ-2023-04567",
+            "label": "MPLADS Project",
+            "type": "PROJECT",
+            "properties": {
+              "Cost": "₹12.40 Lakh",
+              "Asset": "2 Additional Classrooms",
+              "Dates": "Sanction: 2023-04-15, Comp: 2023-05-08"
+            }
+          },
+          {
+            "id": "school:02120100402",
+            "label": "GHS Rampur (02120100402)",
+            "type": "SCHOOL",
+            "properties": {
+              "Management": "GOVERNMENT",
+              "Location": "Kangra, HP"
+            }
+          },
+          {
+            "id": "state:2022-23",
+            "label": "Pre-Sanction Census (2022-23)",
+            "type": "STATE",
+            "properties": {
+              "Classrooms": 7,
+              "Enrollment": 43,
+              "Freeze Date": "2022-09-30"
+            }
+          },
+          {
+            "id": "state:2024-25",
+            "label": "Post-Comp Census (2024-25)",
+            "type": "STATE",
+            "properties": {
+              "Classrooms": 7,
+              "Enrollment": 31,
+              "Freeze Date": "2024-09-30"
+            }
+          },
+          {
+            "id": "contradiction:refl_gap",
+            "label": "Physical Asset Non-Reflection",
+            "type": "CONTRADICTION",
+            "properties": {
+              "Observed Delta": "0 Classrooms",
+              "Expected Delta": "+2 Classrooms",
+              "Source": "MoE UDISE+ Return"
+            }
+          },
+          {
+            "id": "contradiction:velocity",
+            "label": "Physical Velocity Violation",
+            "type": "CONTRADICTION",
+            "properties": {
+              "Recorded Duration": "23 Days",
+              "IS 456 Specification": "Min 45 Days Concrete Curing"
+            }
+          }
+        ],
+        "links": [
+          {
+            "source": "project:PRJ-2023-04567",
+            "target": "school:02120100402",
+            "relation": "CLAIMS_TARGET_INSTITUTION",
+            "confidence": 0.92
+          },
+          {
+            "source": "school:02120100402",
+            "target": "state:2022-23",
+            "relation": "RECORDED_BASELINE"
+          },
+          {
+            "source": "school:02120100402",
+            "target": "state:2024-25",
+            "relation": "RECORDED_POST_COMP"
+          },
+          {
+            "source": "project:PRJ-2023-04567",
+            "target": "contradiction:refl_gap",
+            "relation": "CONTRADICTED_BY"
+          },
+          {
+            "source": "state:2024-25",
+            "target": "contradiction:refl_gap",
+            "relation": "EVIDENCE_ANCHOR"
+          },
+          {
+            "source": "project:PRJ-2023-04567",
+            "target": "contradiction:velocity",
+            "relation": "VIOLATES_PHYSICS"
+          }
+        ]
+      },
+      "explanation_narrative": "Project PRJ-2023-04567 claimed completion of 2 Additional Classrooms in 23 days at Government High School Rampur. Independent UDISE+ return (2024-25) records exactly 7 classrooms, identical to the pre-sanction baseline (2022-23), indicating zero physical classroom increase. Furthermore, the 23-day construction timeline violates mandatory IS 456 structural concrete curing norms."
+    },
+    {
+      "case_id": "8e24c5b1-2139-4458-9a3b-5134710bb872",
+      "project_id": "PRJ-2023-01124",
+      "mp_id": "MP-LS-HP-02",
+      "school_name": "St. Xavier Academy Kangra",
+      "udise_code": "02120109981",
+      "sanction_cost": 850000.0,
+      "canonical_asset_type": "COMPUTER_LAB",
+      "target_quantity": 1,
+      "recommendation_date": "2023-02-10",
+      "sanction_date": "2023-05-18",
+      "completion_date": "2023-11-20",
+      "ipi_score": 76.0,
+      "ipi_lower": 70.0,
+      "ipi_upper": 82.0,
+      "risk_tier": 3,
+      "primary_category": "STATUTORY_INELIGIBLE_BENEFICIARY",
+      "status": "PENDING_REVIEW",
+      "created_at": "2024-08-16T11:00:00Z",
+      "lane_scores": {
+        "STATUTORY": {
+          "score": 1.0,
+          "violations": [
+            "RULE_VIOLATION_PRIVATE_UNAIDED_BENEFICIARY (MPLADS Guidelines Ch 6)",
+            "STATUTORY_SANCTION_WINDOW_EXCEEDED (97 days vs max 75 days)"
+          ]
+        },
+        "INSTITUTIONAL_NEED": { "score": 0.0 },
+        "ASSET_REFLECTION": { "score": 0.0, "status": "ASSET_REFLECTED" },
+        "TIMELINE_PHYSICS": { "score": 0.0, "duration_days": 186 }
+      },
+      "exception_adjustments": [],
+      "project_details": {
+        "project_id": "PRJ-2023-01124",
+        "mp_id": "MP-LS-HP-02",
+        "district_lgd_code": 12,
+        "work_description_raw": "Setup of Smart Computer Lab at St Xavier Academy",
+        "sanction_cost": 850000.0,
+        "recommendation_date": "2023-02-10",
+        "sanction_date": "2023-05-18",
+        "completion_date": "2023-11-20",
+        "canonical_asset_type": "COMPUTER_LAB",
+        "target_quantity": 1,
+        "resolved_udise_code": "02120109981",
+        "resolution_confidence": 0.95,
+        "resolution_status": "AUTO_ACCEPTED"
+      },
+      "school_details": {
+        "udise_code": "02120109981",
+        "name_canonical": "St. Xavier Academy Kangra",
+        "state_lgd_code": 2,
+        "district_lgd_code": 12,
+        "block_lgd_code": 101,
+        "village_name": "Kangra Urban",
+        "management_category": "PRIVATE_UNAIDED",
+        "operational_status": "OPERATIONAL",
+        "latitude": 32.0991,
+        "longitude": 76.2691
+      },
+      "evidence_graph": {
+        "directed": true,
+        "multigraph": false,
+        "nodes": [
+          { "id": "project:PRJ-2023-01124", "label": "MPLADS Project", "type": "PROJECT", "properties": { "Cost": "₹8.50 Lakh", "Asset": "Computer Lab" } },
+          { "id": "school:02120109981", "label": "St. Xavier Academy", "type": "SCHOOL", "properties": { "Management": "PRIVATE_UNAIDED" } },
+          { "id": "rule:ch6", "label": "Ineligible Beneficiary Violation", "type": "RULE", "properties": { "Guideline": "MPLADS Guidelines 2023 Chapter 6.1" } }
+        ],
+        "links": [
+          { "source": "project:PRJ-2023-01124", "target": "school:02120109981", "relation": "CLAIMS_TARGET_INSTITUTION", "confidence": 0.95 },
+          { "source": "school:02120109981", "target": "rule:ch6", "relation": "VIOLATES_STATUTORY_RULE" }
+        ]
+      },
+      "explanation_narrative": "Project PRJ-2023-01124 allocated ₹8.50 Lakh for a Computer Lab at St. Xavier Academy, which is verified in UDISE+ Section 1A as a PRIVATE_UNAIDED school. Under Chapter 6 of MPLADS Guidelines 2023, private unaided schools are strictly prohibited from receiving MPLADS infrastructure grants."
+    },
+    {
+      "case_id": "4b91f0c2-5561-4fae-9d22-192837465abc",
+      "project_id": "PRJ-2023-08912",
+      "mp_id": "MP-LS-HP-02",
+      "school_name": "Government Primary School Dharamshala",
+      "udise_code": "02120200114",
+      "sanction_cost": 450000.0,
+      "canonical_asset_type": "TOILET_BLOCK",
+      "target_quantity": 1,
+      "recommendation_date": "2023-05-10",
+      "sanction_date": "2023-06-01",
+      "completion_date": "2023-09-15",
+      "ipi_score": 48.0,
+      "ipi_lower": 40.0,
+      "ipi_upper": 56.0,
+      "risk_tier": 2,
+      "primary_category": "INSTITUTIONAL_SITING_INEFFICIENCY",
+      "status": "PENDING_REVIEW",
+      "created_at": "2024-08-16T12:00:00Z",
+      "lane_scores": {
+        "STATUTORY": { "score": 0.0, "violations": [] },
+        "INSTITUTIONAL_NEED": {
+          "score": 0.72,
+          "metrics": { "latest_scr": 3.8, "3yr_enrollment_growth": -0.48 }
+        },
+        "ASSET_REFLECTION": { "score": 0.0, "status": "ASSET_REFLECTED" },
+        "TIMELINE_PHYSICS": { "score": 0.0, "duration_days": 106 }
+      },
+      "exception_adjustments": [],
+      "project_details": {
+        "project_id": "PRJ-2023-08912",
+        "mp_id": "MP-LS-HP-02",
+        "district_lgd_code": 12,
+        "work_description_raw": "Construction of Girls Sanitation Facility at GPS Dharamshala",
+        "sanction_cost": 450000.0,
+        "recommendation_date": "2023-05-10",
+        "sanction_date": "2023-06-01",
+        "completion_date": "2023-09-15",
+        "canonical_asset_type": "TOILET_BLOCK",
+        "target_quantity": 1,
+        "resolved_udise_code": "02120200114",
+        "resolution_confidence": 0.89,
+        "resolution_status": "AUTO_ACCEPTED"
+      },
+      "school_details": {
+        "udise_code": "02120200114",
+        "name_canonical": "Government Primary School Dharamshala",
+        "state_lgd_code": 2,
+        "district_lgd_code": 12,
+        "block_lgd_code": 102,
+        "village_name": "Dharamshala",
+        "management_category": "GOVERNMENT",
+        "operational_status": "OPERATIONAL",
+        "latitude": 32.2190,
+        "longitude": 76.3234
+      },
+      "evidence_graph": {
+        "directed": true,
+        "multigraph": false,
+        "nodes": [
+          { "id": "project:PRJ-2023-08912", "label": "MPLADS Project", "type": "PROJECT", "properties": { "Cost": "₹4.50 Lakh", "Asset": "Toilet Block" } },
+          { "id": "school:02120200114", "label": "GPS Dharamshala", "type": "SCHOOL", "properties": { "Enrollment": "19 Pupils", "Existing Toilets": "4 Functional" } }
+        ],
+        "links": [
+          { "source": "project:PRJ-2023-08912", "target": "school:02120200114", "relation": "CLAIMS_TARGET_INSTITUTION", "confidence": 0.89 }
+        ]
+      },
+      "explanation_narrative": "Project PRJ-2023-08912 sanctioned a sanitation facility for a primary school with only 19 enrolled pupils and 4 already-functional toilet blocks. Flagged for Tier 2 desk review regarding demographic siting efficiency."
+    }
+  ],
+  "ambiguity_items": [
+    {
+      "project_id": "PRJ-2023-09941",
+      "work_description_raw": "Renovation and civil works at Shaheed Bhagat Singh Memorial High School",
+      "project_coords": [31.1423, 77.1724],
+      "candidates": [
+        {
+          "udise_code": "02120100402",
+          "school_name": "Government High School Rampur",
+          "distance_meters": 45,
+          "similarity_score": 0.38,
+          "management": "GOVERNMENT",
+          "status": "OPERATIONAL (Historical alias match within 50m)"
+        },
+        {
+          "udise_code": "02120100890",
+          "school_name": "Bhagat Memorial Public School",
+          "distance_meters": 2800,
+          "similarity_score": 0.62,
+          "management": "PRIVATE_UNAIDED",
+          "status": "OPERATIONAL"
+        }
+      ]
+    }
+  ],
+  "district_analytics": {
+    "district_name": "Kangra (Himachal Pradesh)",
+    "total_projects": 250,
+    "total_expenditure": 31250000.0,
+    "tier_distribution": {
+      "tier_1": 182,
+      "tier_2": 46,
+      "tier_3": 22
+    },
+    "average_ipi": 24.3,
+    "anomaly_breakdown": {
+      "CRITICAL_REFLECTION_GAP": 14,
+      "PHYSICAL_VELOCITY_VIOLATION": 18,
+      "STATUTORY_INELIGIBLE_BENEFICIARY": 5,
+      "INSTITUTIONAL_SITING_INEFFICIENCY": 31
+    }
+  }
+}

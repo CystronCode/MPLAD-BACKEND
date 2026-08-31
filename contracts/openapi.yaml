@@ -1,0 +1,337 @@
+openapi: 3.1.0
+info:
+  title: MEEV Core API (MPLADS Education Ecosystem Validator)
+  description: Backend Decision-Support API for SIH26102
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Localhost Development Server
+
+paths:
+  /cases:
+    get:
+      summary: Retrieve prioritized investigation case queue
+      operationId: getInvestigationCases
+      parameters:
+        - name: tier
+          in: query
+          description: Filter by Risk Tier (1, 2, 3)
+          required: false
+          schema:
+            type: integer
+            enum: [1, 2, 3]
+        - name: min_ipi
+          in: query
+          description: Filter by minimum IPI score
+          required: false
+          schema:
+            type: number
+            default: 0.0
+        - name: status
+          in: query
+          description: Filter by Case Status
+          required: false
+          schema:
+            type: string
+            enum: [PENDING_REVIEW, ESCALATED, DISMISSED, VERIFIED]
+      responses:
+        '200':
+          description: List of investigation cases
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InvestigationCaseSummary'
+
+  /cases/{case_id}:
+    get:
+      summary: Retrieve full case details including evidence narrative and metrics
+      operationId: getCaseDetail
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Full case detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvestigationCaseDetail'
+        '404':
+          description: Case not found
+
+  /cases/{case_id}/evidence-graph:
+    get:
+      summary: Fetch D3-compatible node-link evidence subgraph
+      operationId: getEvidenceGraph
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: D3.js node-link graph payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/D3GraphPayload'
+        '404':
+          description: Case not found
+
+  /cases/{case_id}/notice/pdf:
+    get:
+      summary: Download Statutory Show-Cause Notice (Form MPLADS-INSP-1 PDF)
+      operationId: downloadNoticePdf
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Generated PDF document
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Case not found
+
+  /cases/{case_id}/decision:
+    post:
+      summary: Record human investigator decision and append to SHA-256 audit chain
+      operationId: recordDecision
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseDecisionRequest'
+      responses:
+        '200':
+          description: Decision successfully recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseDecisionResponse'
+        '400':
+          description: Invalid decision transition
+
+  /ambiguity-queue:
+    get:
+      summary: Retrieve list of ambiguous entity matches (0.60 - 0.84 confidence)
+      operationId: getAmbiguityQueue
+      responses:
+        '200':
+          description: List of ambiguous match tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AmbiguityItem'
+
+  /ambiguity-queue/{project_id}/resolve:
+    post:
+      summary: Manually resolve ambiguous school assignment
+      operationId: resolveAmbiguity
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resolved_udise_code:
+                  type: string
+                investigator_id:
+                  type: string
+              required: [resolved_udise_code, investigator_id]
+      responses:
+        '200':
+          description: Ambiguity resolved
+
+  /analytics/district:
+    get:
+      summary: Get aggregate district statistics and risk breakdown
+      operationId: getDistrictAnalytics
+      responses:
+        '200':
+          description: District analytics summary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistrictAnalytics'
+
+components:
+  schemas:
+    InvestigationCaseSummary:
+      type: object
+      properties:
+        case_id:
+          type: string
+          format: uuid
+        project_id:
+          type: string
+        school_name:
+          type: string
+        udise_code:
+          type: string
+        sanction_cost:
+          type: number
+        canonical_asset_type:
+          type: string
+        ipi_score:
+          type: number
+        ipi_lower:
+          type: number
+        ipi_upper:
+          type: number
+        risk_tier:
+          type: integer
+          enum: [1, 2, 3]
+        primary_category:
+          type: string
+        status:
+          type: string
+          enum: [PENDING_REVIEW, ESCALATED, DISMISSED, VERIFIED]
+      required: [case_id, project_id, school_name, udise_code, sanction_cost, canonical_asset_type, ipi_score, ipi_lower, ipi_upper, risk_tier, primary_category, status]
+
+    InvestigationCaseDetail:
+      allOf:
+        - $ref: '#/components/schemas/InvestigationCaseSummary'
+        - type: object
+          properties:
+            evidence_graph:
+              $ref: '#/components/schemas/D3GraphPayload'
+            explanation_narrative:
+              type: string
+            lane_scores:
+              type: object
+            exception_adjustments:
+              type: array
+              items:
+                type: object
+            project_details:
+              type: object
+            school_details:
+              type: object
+          required: [evidence_graph, explanation_narrative, lane_scores, project_details, school_details]
+
+    D3GraphPayload:
+      type: object
+      properties:
+        directed:
+          type: boolean
+        multigraph:
+          type: boolean
+        nodes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+              type:
+                type: string
+                enum: [PROJECT, SCHOOL, STATE, CONTRADICTION, RULE]
+              properties:
+                type: object
+            required: [id, label, type]
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+              target:
+                type: string
+              relation:
+                type: string
+              confidence:
+                type: number
+            required: [source, target, relation]
+      required: [nodes, links]
+
+    CaseDecisionRequest:
+      type: object
+      properties:
+        decision:
+          type: string
+          enum: [ESCALATE_FIELD_INSPECTION, DISMISS_BENIGN_CONTEXT, REQUEST_HEADMASTER_INFO]
+        notes:
+          type: string
+        investigator_id:
+          type: string
+      required: [decision, investigator_id]
+
+    CaseDecisionResponse:
+      type: object
+      properties:
+        case_id:
+          type: string
+        status:
+          type: string
+        audit_hash:
+          type: string
+        recorded_at:
+          type: string
+          format: date-time
+      required: [case_id, status, audit_hash, recorded_at]
+
+    AmbiguityItem:
+      type: object
+      properties:
+        project_id:
+          type: string
+        work_description_raw:
+          type: string
+        candidates:
+          type: array
+          items:
+            type: object
+      required: [project_id, work_description_raw, candidates]
+
+    DistrictAnalytics:
+      type: object
+      properties:
+        district_name:
+          type: string
+        total_projects:
+          type: number
+        total_expenditure:
+          type: number
+        tier_distribution:
+          type: object
+        average_ipi:
+          type: number
+        anomaly_breakdown:
+          type: object
+      required: [district_name, total_projects, total_expenditure, tier_distribution, average_ipi, anomaly_breakdown]

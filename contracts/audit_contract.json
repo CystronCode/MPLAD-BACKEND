@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AuditHashChainSpecification",
+  "description": "Cryptographic Hash Chain format for MEEV audit trail",
+  "type": "object",
+  "properties": {
+    "log_id": { "type": "integer" },
+    "entity_type": { "type": "string", "enum": ["INGESTION_BATCH", "PROJECT_MATCH", "CASE_CREATION", "INVESTIGATOR_DECISION", "NOTICE_GENERATION"] },
+    "entity_id": { "type": "string" },
+    "action_performed": { "type": "string" },
+    "actor_id": { "type": "string" },
+    "payload": { "type": "object" },
+    "previous_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "current_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "recorded_at": { "type": "string", "format": "date-time" }
+  },
+  "hash_formula": "SHA-256(canonical_json(payload) || actor_id || recorded_at_iso || previous_hash)",
+  "genesis_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "required": ["entity_type", "entity_id", "action_performed", "actor_id", "payload", "previous_hash", "current_hash", "recorded_at"]
+}

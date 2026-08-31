@@ -1,0 +1,50 @@
+[
+  {
+    "work_id": "PRJ-2023-04567",
+    "mp_id": "MP-LS-HP-02",
+    "district_lgd_code": 12,
+    "work_description": "Construction of 2 Additional Class rooms at GHS Rampur Block-1",
+    "sanction_cost": 1240000.0,
+    "recommendation_date": "2023-04-01",
+    "sanction_date": "2023-04-15",
+    "completion_date": "2023-05-08",
+    "latitude": 32.1153,
+    "longitude": 76.2206
+  },
+  {
+    "work_id": "PRJ-2023-01124",
+    "mp_id": "MP-LS-HP-02",
+    "district_lgd_code": 12,
+    "work_description": "Setup of Smart Computer Lab at St Xavier Academy Kangra",
+    "sanction_cost": 850000.0,
+    "recommendation_date": "2023-02-10",
+    "sanction_date": "2023-05-18",
+    "completion_date": "2023-11-20",
+    "latitude": 32.0991,
+    "longitude": 76.2691
+  },
+  {
+    "work_id": "PRJ-2023-08912",
+    "mp_id": "MP-LS-HP-02",
+    "district_lgd_code": 12,
+    "work_description": "Construction of Girls Sanitation Facility at GPS Dharamshala",
+    "sanction_cost": 450000.0,
+    "recommendation_date": "2023-05-10",
+    "sanction_date": "2023-06-01",
+    "completion_date": "2023-09-15",
+    "latitude": 32.2190,
+    "longitude": 76.3234
+  },
+  {
+    "work_id": "PRJ-2023-03319",
+    "mp_id": "MP-LS-HP-02",
+    "district_lgd_code": 12,
+    "work_description": "Construction of 2 Additional Classrooms at GSSS Palampur",
+    "sanction_cost": 1400000.0,
+    "recommendation_date": "2023-01-15",
+    "sanction_date": "2023-02-20",
+    "completion_date": "2023-08-30",
+    "latitude": 32.1109,
+    "longitude": 76.5363
+  }
+]

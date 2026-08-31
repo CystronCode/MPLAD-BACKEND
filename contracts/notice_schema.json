@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StatutoryInspectionNotice",
+  "type": "object",
+  "properties": {
+    "notice_reference": { "type": "string" },
+    "issuance_date": { "type": "string", "format": "date" },
+    "issued_to_role": { "type": "string" },
+    "district_name": { "type": "string" },
+    "project_particulars": {
+      "type": "object",
+      "properties": {
+        "project_id": { "type": "string" },
+        "work_description": { "type": "string" },
+        "sanctioned_cost": { "type": "number" },
+        "disbursed_amount": { "type": "number" },
+        "sanction_date": { "type": "string", "format": "date" },
+        "completion_date": { "type": "string", "format": "date" },
+        "claimed_duration_days": { "type": "integer" }
+      },
+      "required": ["project_id", "work_description", "sanctioned_cost", "sanction_date", "completion_date"]
+    },
+    "school_particulars": {
+      "type": "object",
+      "properties": {
+        "udise_code": { "type": "string" },
+        "school_name": { "type": "string" },
+        "management_category": { "type": "string" },
+        "gps_coordinates": {
+          "type": "object",
+          "properties": {
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" }
+          },
+          "required": ["latitude", "longitude"]
+        }
+      },
+      "required": ["udise_code", "school_name", "gps_coordinates"]
+    },
+    "contradiction_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "axis": { "type": "string" },
+          "finding_title": { "type": "string" },
+          "description": { "type": "string" },
+          "source_sha256": { "type": "string" }
+        },
+        "required": ["axis", "finding_title", "description"]
+      }
+    },
+    "directive": { "type": "string" },
+    "ordered_by": { "type": "string" },
+    "statutory_guideline_section": { "type": "string", "default": "Section 6.4 of MPLADS Guidelines 2023" }
+  },
+  "required": [
+    "notice_reference",
+    "issuance_date",
+    "district_name",
+    "project_particulars",
+    "school_particulars",
+    "contradiction_findings",
+    "directive",
+    "ordered_by"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BronzeDataSchemas",
+  "definitions": {
+    "BronzeUDISESchool": {
+      "type": "object",
+      "properties": {
+        "udise_sch_code": { "type": "string", "minLength": 11, "maxLength": 11 },
+        "school_name": { "type": "string" },
+        "state_name": { "type": "string" },
+        "district_name": { "type": "string" },
+        "block_name": { "type": "string" },
+        "village_name": { "type": ["string", "null"] },
+        "sch_mgmt_center": { "type": "string" },
+        "sch_category": { "type": "string" },
+        "latitude": { "type": ["number", "null"] },
+        "longitude": { "type": ["number", "null"] },
+        "academic_year": { "type": "string" },
+        "total_classrooms": { "type": "integer" },
+        "classrooms_in_good_condition": { "type": "integer" },
+        "classrooms_dilapidated": { "type": "integer" },
+        "electricity_availability": { "type": "string" },
+        "drinking_water_availability": { "type": "string" },
+        "toilet_functional_girls": { "type": "integer" },
+        "toilet_functional_boys": { "type": "integer" },
+        "computer_lab_available": { "type": "string" },
+        "total_computers": { "type": "integer" },
+        "total_enrolment": { "type": "integer" },
+        "girls_enrolment": { "type": "integer" },
+        "boys_enrolment": { "type": "integer" }
+      },
+      "required": ["udise_sch_code", "school_name", "district_name", "academic_year", "total_classrooms", "total_enrolment"]
+    },
+    "BronzeESAKSHIWork": {
+      "type": "object",
+      "properties": {
+        "work_id": { "type": "string" },
+        "mp_id": { "type": "string" },
+        "mp_name": { "type": "string" },
+        "constituency": { "type": "string" },
+        "state_name": { "type": "string" },
+        "district_name": { "type": "string" },
+        "block_name": { "type": ["string", "null"] },
+        "work_description": { "type": "string" },
+        "sanction_cost": { "type": "number", "exclusiveMinimum": 0 },
+        "recommendation_date": { "type": "string", "format": "date" },
+        "sanction_date": { "type": "string", "format": "date" },
+        "completion_date": { "type": ["string", "null"], "format": "date" },
+        "latitude": { "type": ["number", "null"] },
+        "longitude": { "type": ["number", "null"] },
+        "implementing_agency": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["work_id", "mp_id", "district_name", "work_description", "sanction_cost", "recommendation_date", "sanction_date"]
+    }
+  }
+}
