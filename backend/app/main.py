@@ -32,6 +32,23 @@ app.add_middleware(
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
+from backend.app.db.session import get_db_context
+from backend.app.db.models import School
+from backend.scripts.load_realtime_data import load_realtime_data
+
+@app.on_event("startup")
+def startup_event():
+    """Ensure database schema is created and authentic real-time baseline data is loaded."""
+    try:
+        Base.metadata.create_all(bind=engine)
+        with get_db_context() as db:
+            count = db.query(School).count()
+            if count == 0:
+                print("Database is uninitialized. Ingesting authentic UDISE+ and real-time e-SAKSHI claims...")
+                load_realtime_data()
+    except Exception as e:
+        print(f"Startup initialization notice: {e}")
+
 @app.get("/health", tags=["Health"])
 def health_check():
     return {
