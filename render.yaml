@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: mplad-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHONPATH
+        value: .
+      - key: USE_SQLITE_FALLBACK
+        value: "true"
+      - key: PYTHON_VERSION
+        value: 3.11.9
