@@ -63,6 +63,8 @@ def process_live_esakshi_claim(
     # 2. Fetch candidate schools if not cached in batch
     if candidate_schools is None:
         schools = db.query(School).filter(School.district_lgd_code == dist_lgd).all()
+        if not schools:
+            schools = db.query(School).all()
         candidate_schools = [
             {
                 "udise_code": s.udise_code,

@@ -12,7 +12,6 @@ def generate_statutory_notice_pdf(case_data: Dict[str, Any]) -> bytes:
     """
     buffer = io.BytesIO()
 
-    
     try:
         from reportlab.lib.pagesizes import letter
         from reportlab.lib import colors
@@ -74,13 +73,17 @@ def generate_statutory_notice_pdf(case_data: Dict[str, Any]) -> bytes:
         # Notice Metadata
         p_info = case_data.get("project_details", {})
         s_info = case_data.get("school_details", {})
-        ref_no = f"MPLADS-INSP-{p_info.get('project_id', '2024-KNG-0042')}"
+        ref_no = f"MPLADS-INSP-{p_info.get('project_id', '2024-BN-0042')}"
         today_str = str(date.today())
+
+        district_name = "Bengaluru North Parliamentary Constituency (Karnataka)"
+        if s_info.get("district_lgd_code") == 12 or p_info.get("district_lgd_code") == 12:
+            district_name = "Kangra District (Himachal Pradesh)"
 
         meta_data = [
             [Paragraph(f"<b>Notice Ref:</b> {ref_no}", body_style), Paragraph(f"<b>Date:</b> {today_str}", body_style)],
             [Paragraph("<b>To:</b> Executive Engineer, PWD / Rural Development Division", body_style),
-             Paragraph("<b>Jurisdiction:</b> Kangra District", body_style)],
+             Paragraph(f"<b>Jurisdiction:</b> {district_name}", body_style)],
             [Paragraph(f"<b>Subject:</b> Mandatory Physical Verification of Completed MPLADS Work ID: <b>{p_info.get('project_id')}</b>", body_style), ""]
         ]
         t_meta = Table(meta_data, colWidths=[300, 240])
@@ -93,11 +96,14 @@ def generate_statutory_notice_pdf(case_data: Dict[str, Any]) -> bytes:
         elements.append(Spacer(1, 8))
 
         # 1. Project Particulars
+        sanction_amt = float(p_info.get('sanction_cost', 0) or 0)
+        lakhs_amt = sanction_amt / 100000.0
+
         elements.append(Paragraph("1. PROJECT PARTICULARS", heading_style))
         proj_data = [
             [Paragraph("<b>Work Description</b>", body_style), Paragraph(str(p_info.get("work_description_raw", "")), body_style)],
             [Paragraph("<b>Target School</b>", body_style), Paragraph(f"{s_info.get('name_canonical')} (UDISE: {s_info.get('udise_code')})", body_style)],
-            [Paragraph("<b>Sanction Cost</b>", body_style), Paragraph(f"₹{p_info.get('sanction_cost', 0):,.2f}", body_style)],
+            [Paragraph("<b>Sanction Cost</b>", body_style), Paragraph(f"INR {sanction_amt:,.2f} (Rs. {lakhs_amt:.2f} Lakhs)", body_style)],
             [Paragraph("<b>Key Dates</b>", body_style), Paragraph(f"Sanction: {p_info.get('sanction_date')} | Completion: {p_info.get('completion_date')}", body_style)],
             [Paragraph("<b>GPS Coordinates</b>", body_style), Paragraph(f"Lat: {s_info.get('latitude')}, Lon: {s_info.get('longitude')}", body_style)]
         ]
@@ -110,10 +116,20 @@ def generate_statutory_notice_pdf(case_data: Dict[str, Any]) -> bytes:
         elements.append(t_proj)
         elements.append(Spacer(1, 8))
 
-        # 2. Contradiction Findings
+        # 2. Contradiction Findings in Clear Administrative English
         elements.append(Paragraph("2. SYSTEMIC CROSS-REGISTRY CONTRADICTION FINDINGS", heading_style))
-        narrative = case_data.get("explanation_narrative", "Physical asset reflection contradicts official returns.")
-        elements.append(Paragraph(f"<b>Analytical Summary:</b> {narrative}", body_style))
+        raw_narrative = str(case_data.get("explanation_narrative", ""))
+        
+        if "STATUTORY" in raw_narrative or "PRIVATE" in str(s_info.get("management_category", "")):
+            narrative = "<b>Statutory Ineligibility Violation:</b> Public MPLADS funds were allocated to a Private Unaided Institution, which violates Section 6.1 of the MPLADS Guidelines 2023. Government funds may only be spent on public or government-aided institutions. Immediate verification and recovery audit ordered."
+        elif "REFLECTION" in raw_narrative or "Missing" in raw_narrative:
+            narrative = "<b>Asset Non-Reflection Gap:</b> The implementing agency reported 100% completion and disbursement in e-SAKSHI, but the independent annual UDISE+ school census confirms ZERO new rooms or facilities added on the ground. Physical verification is mandatory before final billing."
+        elif "VELOCITY" in raw_narrative or "Speed" in raw_narrative:
+            narrative = "<b>Unrealistic Construction Velocity:</b> Claimed completion timeframe is under 30 days, violating minimum structural RCC concrete curing physics (IS 456 standard). Structural stability and muster roll audit required."
+        else:
+            narrative = raw_narrative if raw_narrative else "Physical asset reflection contradicts official annual census returns."
+
+        elements.append(Paragraph(f"<b>Collectorate Ground Finding:</b> {narrative}", body_style))
         elements.append(Spacer(1, 6))
 
         # 3. Directives
@@ -136,7 +152,6 @@ def generate_statutory_notice_pdf(case_data: Dict[str, Any]) -> bytes:
         return buffer.getvalue()
 
     except ImportError:
-        # Fallback raw PDF generation if ReportLab is missing
         text_content = f"""%PDF-1.4
 1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
 2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
@@ -169,4 +184,3 @@ startxref
         return text_content.encode("utf-8")
 
 generate_mplads_insp1_notice = generate_statutory_notice_pdf
-
