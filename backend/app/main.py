@@ -1,7 +1,8 @@
 # backend/app/main.py
 # FastAPI application entry point for MEEV Core
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.config import settings
 from backend.app.api.router import api_router
@@ -21,14 +22,26 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# Enable CORS for React frontend (localhost:3000)
+# Robust CORS middleware configuration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={"detail": str(exc), "error_type": type(exc).__name__},
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "*",
+            "Access-Control-Allow-Headers": "*"
+        }
+    )
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
