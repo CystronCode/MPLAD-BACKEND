@@ -56,7 +56,7 @@
     "village_name": "Chikkodi",
     "latitude": 12.02,
     "longitude": 74.82,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -225,8 +225,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -248,7 +248,7 @@
     "village_name": "Belgaum",
     "latitude": 12.24,
     "longitude": 74.97,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -440,7 +440,7 @@
     "village_name": "Bagalkot",
     "latitude": 12.46,
     "longitude": 75.12,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -609,8 +609,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -632,7 +632,7 @@
     "village_name": "Bijapur",
     "latitude": 12.68,
     "longitude": 75.27,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -824,7 +824,7 @@
     "village_name": "Gulbarga",
     "latitude": 12.9,
     "longitude": 75.42,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -993,8 +993,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -1016,7 +1016,7 @@
     "village_name": "Raichur",
     "latitude": 13.12,
     "longitude": 75.57,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -1208,7 +1208,7 @@
     "village_name": "Bidar",
     "latitude": 13.34,
     "longitude": 75.72,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -1377,8 +1377,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -1400,7 +1400,7 @@
     "village_name": "Koppal",
     "latitude": 13.56,
     "longitude": 75.87,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -1592,7 +1592,7 @@
     "village_name": "Bellary",
     "latitude": 13.78,
     "longitude": 76.02,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -1761,8 +1761,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -1784,7 +1784,7 @@
     "village_name": "Haveri",
     "latitude": 14.0,
     "longitude": 76.17,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -1976,7 +1976,7 @@
     "village_name": "Dharwad",
     "latitude": 14.22,
     "longitude": 76.32,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -2145,8 +2145,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -2168,7 +2168,7 @@
     "village_name": "Uttara Kannada",
     "latitude": 14.44,
     "longitude": 76.47,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -2360,7 +2360,7 @@
     "village_name": "Davanagere",
     "latitude": 14.66,
     "longitude": 76.62,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -2529,8 +2529,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -2552,7 +2552,7 @@
     "village_name": "Shimoga",
     "latitude": 14.88,
     "longitude": 76.77,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -2744,7 +2744,7 @@
     "village_name": "Udupi Chikmagalur",
     "latitude": 15.1,
     "longitude": 76.92,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -2913,8 +2913,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -2936,7 +2936,7 @@
     "village_name": "Hassan",
     "latitude": 15.32,
     "longitude": 77.07,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -3128,7 +3128,7 @@
     "village_name": "Dakshina Kannada",
     "latitude": 15.54,
     "longitude": 77.22,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -3297,8 +3297,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -3320,7 +3320,7 @@
     "village_name": "Chitradurga",
     "latitude": 15.76,
     "longitude": 77.37,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -3512,7 +3512,7 @@
     "village_name": "Tumkur",
     "latitude": 15.98,
     "longitude": 77.52,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -3681,8 +3681,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -3704,7 +3704,7 @@
     "village_name": "Mandya",
     "latitude": 16.2,
     "longitude": 77.67,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -3896,7 +3896,7 @@
     "village_name": "Mysore",
     "latitude": 16.42,
     "longitude": 77.82,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -4065,8 +4065,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -4088,7 +4088,7 @@
     "village_name": "Chamarajanagar",
     "latitude": 12.14,
     "longitude": 77.97,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -4280,7 +4280,7 @@
     "village_name": "Bangalore Rural",
     "latitude": 12.36,
     "longitude": 74.92,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -4449,8 +4449,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -4472,7 +4472,7 @@
     "village_name": "Bangalore North",
     "latitude": 12.58,
     "longitude": 75.07,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -4856,7 +4856,7 @@
     "village_name": "Bangalore Central",
     "latitude": 12.8,
     "longitude": 75.22,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -5025,8 +5025,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -5048,7 +5048,7 @@
     "village_name": "Bangalore South",
     "latitude": 13.02,
     "longitude": 75.37,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -5240,7 +5240,7 @@
     "village_name": "Chikkaballapur",
     "latitude": 13.24,
     "longitude": 75.52,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {
@@ -5409,8 +5409,8 @@
         "total_enrollment": 195,
         "girls_enrollment": 100,
         "boys_enrollment": 95,
-        "total_classrooms": 10,
-        "good_condition_classrooms": 8,
+        "total_classrooms": 8,
+        "good_condition_classrooms": 6,
         "classrooms_dilapidated": 0,
         "has_electricity": true,
         "has_drinking_water": true,
@@ -5432,7 +5432,7 @@
     "village_name": "Yadgir",
     "latitude": 13.46,
     "longitude": 75.67,
-    "management_category": "GOVERNMENT",
+    "management_category": "PRIVATE_UNAIDED",
     "operational_status": "OPERATIONAL",
     "states": [
       {

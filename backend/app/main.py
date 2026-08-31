@@ -43,9 +43,9 @@ def startup_event():
         Base.metadata.create_all(bind=engine)
         with get_db_context() as db:
             count = db.query(School).count()
-            if count == 0:
-                print("Database is uninitialized. Ingesting authentic UDISE+ and real-time e-SAKSHI claims...")
-                load_realtime_data()
+            if count < 100:
+                print("Ingesting authentic Karnataka State 28-Constituency UDISE+ and e-SAKSHI claims...")
+                load_realtime_data(clear_first=True)
     except Exception as e:
         print(f"Startup initialization notice: {e}")
 

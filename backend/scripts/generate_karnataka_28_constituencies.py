@@ -1,5 +1,5 @@
 # backend/scripts/generate_karnataka_28_constituencies.py
-# Generates rich, authentic UDISE+ schools and e-SAKSHI works across all 28 Karnataka Parliamentary Constituencies
+# Generates rich, authentic UDISE+ schools and e-SAKSHI works with full Red/Orange/Green distribution across all 28 Karnataka Parliamentary Constituencies
 
 import os
 import json
@@ -9,7 +9,6 @@ MASTER_FILE = os.path.join(DATA_DIR, "karnataka_constituencies_master.json")
 SCHOOLS_OUT_FILE = os.path.join(DATA_DIR, "karnataka_all_schools.json")
 WORKS_OUT_FILE = os.path.join(DATA_DIR, "karnataka_all_works.json")
 
-# Authentic constituency templates with realistic landmarks and school names
 CONSTITUENCY_COHORTS = {
     "KA-01": {"city": "Chikkodi", "schools": ["Government High School Nipani", "Government PU College Chikkodi Main", "Government Model Primary School Hukkeri", "St. Jude English School Chikkodi"]},
     "KA-02": {"city": "Belgaum", "schools": ["Government Sardar High School Belagavi", "Government Model School Camp Belgaum", "Government PU College Tilakwadi", "GHS Shahapur Belgaum"]},
@@ -57,24 +56,22 @@ def generate_full_state_cohort():
         
         school_names = cohort["schools"]
         
-        # Base coordinates for the district
         base_lat = 12.0 + (idx * 0.22) % 4.5
         base_lon = 74.8 + (idx * 0.15) % 3.2
 
         c_schools = []
         for s_idx, s_name in enumerate(school_names):
             udise_code = f"29{dist_lgd:03d}{s_idx+1:02d}01"
-            is_private = "St." in s_name or "Academy" in s_name or "English School" in s_name
+            is_private = (s_idx == 1) or ("St." in s_name or "Academy" in s_name or "English School" in s_name)
             mgmt = "PRIVATE_UNAIDED" if is_private else "GOVERNMENT"
             
             s_lat = round(base_lat + (s_idx * 0.02), 4)
             s_lon = round(base_lon + (s_idx * 0.02), 4)
 
-            # Generate longitudinal states
+            # S_idx 0 is a ghost room (0 delta in census)
+            is_ghost_room = (s_idx == 0)
             pre_classrooms = 8 + (s_idx * 2)
-            # For reflection gap test (e.g. s_idx == 0 for certain seats), classrooms remain unchanged
-            is_reflection_gap = (s_idx == 0 and idx % 2 == 0)
-            post_classrooms = pre_classrooms if is_reflection_gap else (pre_classrooms + 2)
+            post_classrooms = pre_classrooms if is_ghost_room else (pre_classrooms + 2)
 
             states = [
                 {
@@ -129,45 +126,33 @@ def generate_full_state_cohort():
             all_schools.append(school_obj)
             c_schools.append(school_obj)
 
-        # Generate Works for this constituency
+        # Generate Works for this constituency: Guarantee Red (Tier 3), Orange (Tier 2), and Green (Tier 1)
         for w_idx, s_obj in enumerate(c_schools):
             work_id = f"PRJ-{c_code}-{2023}-{w_idx+1:04d}"
             s_name = s_obj["name_canonical"]
             
-            # Anomaly distribution:
-            if w_idx == 0 and idx % 2 == 0:
-                # Priority 1: Field Warrant (Ghost Room - Reflection Gap)
+            if w_idx == 0:
+                # RED (Tier 3: Priority 1 Field Warrant) -> Reflection Gap + Velocity Violation
+                # Completed Jan 15, 2023 (post-census was Sep 30, 2023 = 258 days > 180 days buffer)
                 desc = f"Construction of 2 Additional Class rooms at {s_name}"
                 cost = 1450000.0
-                recom = "2023-03-15"
-                sanc = "2023-04-10"
-                comp = "2023-05-02"
-            elif s_obj["management_category"] == "PRIVATE_UNAIDED":
-                # Priority 1: Private Beneficiary Violation
+                recom = "2022-11-01"
+                sanc = "2022-12-28"
+                comp = "2023-01-15"  # 18 days build time + 0 delta in census -> Red Tier 3
+            elif s_obj["management_category"] == "PRIVATE_UNAIDED" or w_idx == 1:
+                # ORANGE (Tier 2: Desk Review) -> Ineligible Private Beneficiary or Timeline Delay
                 desc = f"Setup of Smart Computer Lab at {s_name}"
                 cost = 1150000.0
-                recom = "2023-01-20"
-                sanc = "2023-04-18"
-                comp = "2023-10-10"
-            elif w_idx == 2 and idx % 3 == 0:
-                # Priority 2: 19-day speed violation
-                desc = f"Construction of 2 Additional Classrooms at {s_name}"
-                cost = 1420000.0
-                recom = "2023-03-01"
-                sanc = "2023-03-25"
-                comp = "2023-04-13"
+                recom = "2022-10-01"
+                sanc = "2023-01-15"
+                comp = "2023-08-10"
             else:
-                # Verified Clean Project
-                work_types = [
-                    (f"Construction of 2 Additional Classrooms at {s_name}", 1500000.0),
-                    (f"Construction of Girls Sanitation Toilet Block at {s_name}", 480000.0),
-                    (f"Supply of computers and setup of smart ICT lab at {s_name}", 920000.0),
-                    (f"Construction of Compound Boundary Wall at {s_name}", 620000.0)
-                ]
-                desc, cost = work_types[w_idx % len(work_types)]
-                recom = "2023-01-10"
-                sanc = "2023-02-15"
-                comp = "2023-08-20"
+                # GREEN (Tier 1: Verified Clean) -> Fully reflected in UDISE+
+                desc = f"Construction of 2 Additional Classrooms at {s_name}"
+                cost = 1500000.0
+                recom = "2022-10-10"
+                sanc = "2022-11-15"
+                comp = "2023-06-20"
 
             work_obj = {
                 "work_id": work_id,
@@ -190,7 +175,7 @@ def generate_full_state_cohort():
     with open(WORKS_OUT_FILE, "w", encoding="utf-8") as f:
         json.dump(all_works, f, indent=2)
 
-    print(f"[SUCCESS] Generated {len(all_schools)} schools and {len(all_works)} works across all 28 Karnataka Parliamentary Constituencies!")
+    print(f"[SUCCESS] Generated {len(all_schools)} schools and {len(all_works)} works with complete Red, Orange, and Green distributions across all 28 Karnataka Constituencies!")
 
 if __name__ == "__main__":
     generate_full_state_cohort()

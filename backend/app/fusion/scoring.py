@@ -64,7 +64,7 @@ def compute_investigation_priority_index(
     # Triage Tier Assignment
     if final_ipi >= 70.0:
         risk_tier = RiskTier.TIER_3_FIELD_INSPECTION.value
-    elif final_ipi >= 35.0:
+    elif final_ipi >= 25.0:
         risk_tier = RiskTier.TIER_2_DESK_REVIEW.value
     else:
         risk_tier = RiskTier.TIER_1_AUTO_ARCHIVE.value
