@@ -78,11 +78,12 @@ def sync_udise_ground_truth(
     }
 
 @router.post("/seed-realtime", status_code=status.HTTP_200_OK)
-def trigger_realtime_data_seed():
+def trigger_realtime_data_seed(clear_first: bool = True):
     """
-    Triggers immediate ingestion of authentic UDISE+ schools and real e-SAKSHI claims.
+    Triggers immediate ingestion of authentic UDISE+ schools and real e-SAKSHI claims for Bengaluru North.
     """
     from backend.scripts.load_realtime_data import load_realtime_data
-    load_realtime_data()
-    return {"status": "SUCCESS", "message": "Authentic real-time data successfully ingested."}
+    load_realtime_data(clear_first=clear_first)
+    return {"status": "SUCCESS", "message": "Authentic Bengaluru North real-time data successfully ingested."}
+
 
