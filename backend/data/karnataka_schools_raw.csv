@@ -1,0 +1,9 @@
+udise_code,school_name,district_lgd_code,management_category,latitude,longitude,pre_classrooms,post_classrooms,total_enrollment,village_name
+295740101,Government High School Yelahanka Old Town,574,GOVERNMENT,13.1007,77.5963,8,8,195,Yelahanka
+295740201,Government PU College Hebbal Main Campus,574,GOVERNMENT,13.0358,77.5970,12,14,320,Hebbal
+295740301,St. Anthony English Medium High School RT Nagar,574,PRIVATE_UNAIDED,13.0185,77.5950,6,6,140,RT Nagar
+295740401,Government Model Primary School Peenya Industrial Area,574,GOVERNMENT,13.0285,77.5190,10,12,240,Peenya
+295590101,Government High School Cantonment Ballari,559,GOVERNMENT,15.1394,76.9214,9,9,180,Ballari Cantonment
+295590201,Government Model Primary School Hospet Road,559,GOVERNMENT,15.1450,76.9280,7,9,210,Hospet Road
+295520101,Government Sardar High School Belagavi,552,GOVERNMENT,15.8497,74.4977,11,11,260,Belagavi City
+295520201,St. Mary English Academy Belgaum Camp,552,PRIVATE_UNAIDED,15.8550,74.5020,8,8,160,Belgaum Camp

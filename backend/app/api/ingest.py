@@ -119,5 +119,20 @@ def trigger_live_government_sync(db: Session = Depends(get_db)):
         "synced_at": datetime.utcnow().isoformat() + "Z"
     }
 
+@router.post("/csv-pipeline", status_code=status.HTTP_200_OK)
+def trigger_csv_ingestion_pipeline():
+    """
+    Executes automated ingestion of raw external CSV datasets (karnataka_schools_raw.csv & karnataka_works_raw.csv).
+    """
+    from backend.scripts.ingest_external_csv import execute_csv_ingestion
+    res = execute_csv_ingestion()
+    return {
+        "status": "SUCCESS",
+        "message": "External CSV dataset successfully ingested and evaluated through 4-lane engine.",
+        "details": res
+    }
+
+
+
 
 
