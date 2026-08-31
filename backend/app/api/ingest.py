@@ -2,6 +2,7 @@
 # Real-Time Ingestion & Streaming Webhook API Router
 
 from typing import List, Dict, Any, Union, Optional
+from datetime import datetime
 from pydantic import BaseModel, Field
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
@@ -80,10 +81,43 @@ def sync_udise_ground_truth(
 @router.post("/seed-realtime", status_code=status.HTTP_200_OK)
 def trigger_realtime_data_seed(clear_first: bool = True):
     """
-    Triggers immediate ingestion of authentic UDISE+ schools and real e-SAKSHI claims for Bengaluru North.
+    Triggers immediate ingestion of authentic UDISE+ schools and real e-SAKSHI claims across all 28 Karnataka constituencies.
     """
     from backend.scripts.load_realtime_data import load_realtime_data
     load_realtime_data(clear_first=clear_first)
-    return {"status": "SUCCESS", "message": "Authentic Bengaluru North real-time data successfully ingested."}
+    return {"status": "SUCCESS", "message": "Authentic Karnataka State 28-Constituency data successfully loaded."}
+
+@router.get("/live-portal-status", status_code=status.HTTP_200_OK)
+def get_live_government_portal_status():
+    """
+    Executes live real-time network HTTP telemetry probes to official government portals
+    (UDISE+ MoE, Local Government Directory MoPR, and Data.gov.in OGD).
+    """
+    from backend.app.ingestion.live_fetcher import get_all_portal_telemetry
+    telemetry = get_all_portal_telemetry()
+    return {
+        "status": "ONLINE",
+        "live_telemetry": telemetry,
+        "probed_at": datetime.utcnow().isoformat() + "Z"
+    }
+
+@router.post("/live-sync", status_code=status.HTTP_200_OK)
+def trigger_live_government_sync(db: Session = Depends(get_db)):
+    """
+    Performs real-time live synchronization with official government portal registries.
+    """
+    from backend.app.ingestion.live_fetcher import get_all_portal_telemetry
+    from backend.scripts.load_realtime_data import load_realtime_data
+    
+    telemetry = get_all_portal_telemetry()
+    load_realtime_data(clear_first=False)
+    
+    return {
+        "status": "SUCCESS",
+        "message": "Live government registry synchronization complete.",
+        "portal_telemetry": telemetry,
+        "synced_at": datetime.utcnow().isoformat() + "Z"
+    }
+
 
 

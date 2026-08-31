@@ -75,3 +75,20 @@ def test_stream_batch_esakshi_claims():
     case_ids = [c["project_id"] for c in cases_resp.json()]
     assert "PRJ-LIVE-0002" in case_ids
     assert "PRJ-LIVE-0003" in case_ids
+
+def test_live_portal_telemetry_status():
+    resp = client.get("/api/v1/ingest/live-portal-status")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["status"] == "ONLINE"
+    assert len(data["live_telemetry"]) >= 3
+    for portal in data["live_telemetry"]:
+        assert "latency_ms" in portal
+        assert "http_status" in portal
+
+def test_trigger_live_sync():
+    resp = client.post("/api/v1/ingest/live-sync")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["status"] == "SUCCESS"
+    assert "portal_telemetry" in data
