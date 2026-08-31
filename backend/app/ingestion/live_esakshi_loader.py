@@ -182,7 +182,36 @@ def process_live_esakshi_claim(
 
     # Upsert InvestigationCase
     case = db.query(InvestigationCase).filter(InvestigationCase.project_id == p_id).first()
-    narrative = f"Real-time evaluation: {fusion['primary_category']} (IPI: {fusion['ipi_score']}/100, Tier: {fusion['risk_tier']})."
+    cat = fusion['primary_category']
+    school_name = school_obj.name_canonical if school_obj else "the school"
+    
+    if "REFLECTION" in cat:
+        narrative = (
+            f"The implementing agency reported 100% completion for '{desc}' with Rs. {cost/100000:.2f} Lakhs disbursed. "
+            f"However, the official annual UDISE+ physical school infrastructure census confirms ZERO new rooms or facilities added at {school_name}. "
+            f"This discrepancy indicates potential unexecuted work or a ghost asset. Mandatory physical field inspection required."
+        )
+    elif "STATUTORY" in cat or mgmt == "PRIVATE_UNAIDED":
+        narrative = (
+            f"Public MPLADS funds of Rs. {cost/100000:.2f} Lakhs were sanctioned for '{desc}' at {school_name}, which is registered as a Private Unaided Institution. "
+            f"This violates Section 6.1 of the MPLADS Scheme Guidelines 2023. Government funds may only benefit public or government-aided schools. Immediate audit and recovery proceedings warranted."
+        )
+    elif "VELOCITY" in cat:
+        narrative = (
+            f"The project '{desc}' was reported completed in an unrealistic timeframe violating structural civil engineering limits (minimum 28 days required for RCC concrete curing under IS 456 standards). "
+            f"Quality assessment and Measurement Book (MB) verification required before releasing remaining milestone funds."
+        )
+    elif "SITING" in cat:
+        narrative = (
+            f"Additional facilities were sanctioned for '{desc}' at {school_name} where student-to-classroom ratio is already low with declining enrollment. "
+            f"Infrastructure allocation represents demographic siting inefficiency. Administrative review required."
+        )
+    else:
+        narrative = (
+            f"The project '{desc}' (Sanctioned: Rs. {cost/100000:.2f} Lakhs) has been verified against independent UDISE+ school infrastructure returns. "
+            f"The newly constructed facilities are physically recorded and active in the school register. Approved for clean certification."
+        )
+
     
     if not case:
         case = InvestigationCase(

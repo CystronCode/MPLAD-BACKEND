@@ -45,10 +45,13 @@ def get_cases(
     tier: Optional[int] = Query(None, description="Filter by Risk Tier (1, 2, 3)"),
     min_ipi: Optional[float] = Query(None, description="Filter by minimum IPI score"),
     status: Optional[str] = Query(None, description="Filter by case status"),
+    constituency_code: Optional[str] = Query(None, description="Filter by Constituency Code e.g. KA-24"),
     db: Session = Depends(get_db)
 ):
     query = db.query(InvestigationCase).join(MPLADSProject).join(School)
 
+    if constituency_code and constituency_code != "ALL":
+        query = query.filter(MPLADSProject.project_id.like(f"PRJ-{constituency_code}-%"))
     if tier:
         query = query.filter(InvestigationCase.risk_tier == tier)
     if min_ipi:
