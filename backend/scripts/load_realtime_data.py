@@ -4,7 +4,7 @@
 import os
 import json
 from backend.app.db.session import engine, Base, get_db_context
-from backend.app.db.models import School, LongitudinalState, MPLADSProject, InvestigationCase, AnomalyFlag, AuditLog
+from backend.app.db.models import School, SchoolAnnualState, MPLADSProject, InvestigationCase, AuditLog
 from backend.app.ingestion.live_udise_loader import ingest_udise_records
 from backend.app.ingestion.live_esakshi_loader import process_live_esakshi_batch
 
@@ -29,10 +29,9 @@ def load_realtime_data(clear_first: bool = True):
         with get_db_context() as db:
             print("\n[0/2] Clearing previous regional data for clean Bengaluru North isolation...")
             db.query(AuditLog).delete()
-            db.query(AnomalyFlag).delete()
             db.query(InvestigationCase).delete()
             db.query(MPLADSProject).delete()
-            db.query(LongitudinalState).delete()
+            db.query(SchoolAnnualState).delete()
             db.query(School).delete()
             db.commit()
 

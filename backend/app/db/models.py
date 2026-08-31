@@ -162,3 +162,7 @@ class AuditLog(Base):
     previous_hash = Column(String(64), nullable=False)
     current_hash = Column(String(64), nullable=False)
     recorded_at = Column(DateTime(timezone=True), default=func.now())
+
+# Aliases
+LongitudinalState = SchoolAnnualState
+
