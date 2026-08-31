@@ -77,8 +77,41 @@ def generate_statutory_notice_pdf(case_data: Dict[str, Any]) -> bytes:
         today_str = str(date.today())
 
         district_name = "Bengaluru North Parliamentary Constituency (Karnataka)"
-        if s_info.get("district_lgd_code") == 12 or p_info.get("district_lgd_code") == 12:
-            district_name = "Kangra District (Himachal Pradesh)"
+        
+        LGD_TO_CONSTITUENCY = {
+            551: 'Chikkodi Parliamentary Constituency (Karnataka)',
+            552: 'Belgaum Parliamentary Constituency (Karnataka)',
+            553: 'Bagalkot Parliamentary Constituency (Karnataka)',
+            554: 'Bijapur Parliamentary Constituency (Karnataka)',
+            555: 'Gulbarga Parliamentary Constituency (Karnataka)',
+            556: 'Raichur Parliamentary Constituency (Karnataka)',
+            557: 'Bidar Parliamentary Constituency (Karnataka)',
+            558: 'Koppal Parliamentary Constituency (Karnataka)',
+            559: 'Bellary Parliamentary Constituency (Karnataka)',
+            560: 'Haveri Parliamentary Constituency (Karnataka)',
+            561: 'Dharwad Parliamentary Constituency (Karnataka)',
+            562: 'Uttara Kannada Parliamentary Constituency (Karnataka)',
+            563: 'Davanagere Parliamentary Constituency (Karnataka)',
+            564: 'Shimoga Parliamentary Constituency (Karnataka)',
+            565: 'Udupi Chikmagalur Parliamentary Constituency (Karnataka)',
+            566: 'Hassan Parliamentary Constituency (Karnataka)',
+            567: 'Dakshina Kannada Parliamentary Constituency (Karnataka)',
+            568: 'Chitradurga Parliamentary Constituency (Karnataka)',
+            569: 'Tumkur Parliamentary Constituency (Karnataka)',
+            570: 'Mandya Parliamentary Constituency (Karnataka)',
+            571: 'Mysore Parliamentary Constituency (Karnataka)',
+            572: 'Chamarajanagar Parliamentary Constituency (Karnataka)',
+            573: 'Bangalore Rural Parliamentary Constituency (Karnataka)',
+            574: 'Bengaluru North Parliamentary Constituency (Karnataka)',
+            575: 'Bangalore Central Parliamentary Constituency (Karnataka)',
+            576: 'Bangalore South Parliamentary Constituency (Karnataka)',
+            577: 'Chikkaballapur Parliamentary Constituency (Karnataka)',
+            578: 'Yadgir Parliamentary Constituency (Karnataka)',
+            12: 'Kangra District (Himachal Pradesh)'
+        }
+
+        dist_code = s_info.get('district_lgd_code') or p_info.get('district_lgd_code') or 574
+        district_name = LGD_TO_CONSTITUENCY.get(int(dist_code) if dist_code else 574, f'Karnataka Constituency (District {dist_code})')
 
         meta_data = [
             [Paragraph(f"<b>Notice Ref:</b> {ref_no}", body_style), Paragraph(f"<b>Date:</b> {today_str}", body_style)],
@@ -121,19 +154,43 @@ def generate_statutory_notice_pdf(case_data: Dict[str, Any]) -> bytes:
         raw_narrative = str(case_data.get("explanation_narrative", ""))
         
         if "STATUTORY" in raw_narrative or "PRIVATE" in str(s_info.get("management_category", "")):
-            narrative = "<b>Statutory Ineligibility Violation:</b> Public MPLADS funds were allocated to a Private Unaided Institution, which violates Section 6.1 of the MPLADS Guidelines 2023. Government funds may only be spent on public or government-aided institutions. Immediate verification and recovery audit ordered."
+            narrative = f"<b>Statutory Ineligibility Violation:</b> Public MPLADS funds of INR {sanction_amt:,.2f} were allocated to {s_info.get('name_canonical')}, which is registered as {s_info.get('management_category', 'PRIVATE_UNAIDED')} in UDISE+. This violates Section 6.1 of the MPLADS Guidelines 2023. Government funds may only be spent on public or government-aided institutions. Immediate verification and recovery audit ordered."
+        elif "DELAY" in raw_narrative:
+            try:
+                s_date = date.fromisoformat(p_info.get('sanction_date', '2023-01-01'))
+                r_date = date.fromisoformat(p_info.get('recommendation_date', '2023-01-01'))
+                delay_days = (s_date - r_date).days
+            except:
+                delay_days = 90
+            narrative = f"<b>Sanction Delay Violation:</b> The work was sanctioned {delay_days} days after recommendation, exceeding the statutory 75-day limit stipulated in MPLADS Guidelines Chapter 5. Inexcusable administrative delay."
         elif "REFLECTION" in raw_narrative or "Missing" in raw_narrative:
-            narrative = "<b>Asset Non-Reflection Gap:</b> The implementing agency reported 100% completion and disbursement in e-SAKSHI, but the independent annual UDISE+ school census confirms ZERO new rooms or facilities added on the ground. Physical verification is mandatory before final billing."
+            narrative = f"<b>Asset Non-Reflection Gap:</b> The implementing agency reported 100% completion and disbursement of INR {sanction_amt:,.2f} in e-SAKSHI on {p_info.get('completion_date')}, but the independent annual UDISE+ school census for {s_info.get('name_canonical')} (UDISE: {s_info.get('udise_code')}) confirms ZERO new rooms or facilities added on the ground. Physical verification is mandatory before final billing."
         elif "VELOCITY" in raw_narrative or "Speed" in raw_narrative:
-            narrative = "<b>Unrealistic Construction Velocity:</b> Claimed completion timeframe is under 30 days, violating minimum structural RCC concrete curing physics (IS 456 standard). Structural stability and muster roll audit required."
+            try:
+                c_date = date.fromisoformat(p_info.get('completion_date', '2023-01-30'))
+                s_date = date.fromisoformat(p_info.get('sanction_date', '2023-01-01'))
+                build_days = (c_date - s_date).days
+            except:
+                build_days = 15
+            narrative = f"<b>Unrealistic Construction Velocity:</b> Claimed completion timeframe is {build_days} days, violating minimum structural RCC concrete curing physics (IS 456 standard of 28 days). Structural stability and muster roll audit required."
         else:
             narrative = raw_narrative if raw_narrative else "Physical asset reflection contradicts official annual census returns."
 
         elements.append(Paragraph(f"<b>Collectorate Ground Finding:</b> {narrative}", body_style))
         elements.append(Spacer(1, 6))
 
-        # 3. Directives
-        elements.append(Paragraph("3. DIRECTIVE TO INSPECTING AUTHORITY", heading_style))
+        # 4. Verification Links
+        elements.append(Paragraph("4. OFFICIAL GOVERNMENT VERIFICATION LINKS", heading_style))
+        links_text = (
+            f"• UDISE+ School Profile: https://udiseplus.gov.in/#/viewSchool?udisecode={s_info.get('udise_code')}<br/>"
+            "• MPLADS Public Dashboard: https://mospi.gov.in/mplads<br/>"
+            "• e-SAKSHI Works Registry: https://mplads.mospi.gov.in/ (Authenticated Access Required)"
+        )
+        elements.append(Paragraph(links_text, body_style))
+        elements.append(Spacer(1, 6))
+
+        # 5. Directives
+        elements.append(Paragraph("5. DIRECTIVE TO INSPECTING AUTHORITY", heading_style))
         directive_text = (
             "You are hereby directed to conduct an on-site physical measurement inspection at the registered campus "
             "within <b>SEVEN (7) DAYS</b> of receipt of this notice. You shall physically count available facilities, "
