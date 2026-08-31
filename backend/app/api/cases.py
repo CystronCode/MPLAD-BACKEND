@@ -87,7 +87,7 @@ def get_cases(
 
 def find_case_by_id(db: Session, case_id: str) -> Optional[InvestigationCase]:
     cases = db.query(InvestigationCase).all()
-    return next((c for c in cases if str(c.case_id) == str(case_id)), None)
+    return next((c for c in cases if str(c.case_id) == str(case_id) or str(c.project_id) == str(case_id)), None)
 
 @router.get("/{case_id}", response_model=InvestigationCaseDetail)
 def get_case_detail(case_id: str, db: Session = Depends(get_db)):
