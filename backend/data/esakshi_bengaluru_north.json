@@ -1,0 +1,98 @@
+[
+  {
+    "work_id": "PRJ-BN-2023-0101",
+    "mp_id": "MP-LS-KA-24",
+    "district_lgd_code": 556,
+    "work_description": "Construction of 2 Additional Class rooms at GHS Yelahanka Old Town",
+    "sanction_cost": 1450000.0,
+    "recommendation_date": "2023-03-15",
+    "sanction_date": "2023-04-10",
+    "completion_date": "2023-05-02",
+    "latitude": 13.1008,
+    "longitude": 77.5964
+  },
+  {
+    "work_id": "PRJ-BN-2023-0204",
+    "mp_id": "MP-LS-KA-24",
+    "district_lgd_code": 556,
+    "work_description": "Construction of 2 Additional Classrooms at Govt PU College & High School Hebbal",
+    "sanction_cost": 1500000.0,
+    "recommendation_date": "2023-01-10",
+    "sanction_date": "2023-02-15",
+    "completion_date": "2023-08-20",
+    "latitude": 13.0359,
+    "longitude": 77.5971
+  },
+  {
+    "work_id": "PRJ-BN-2023-0305",
+    "mp_id": "MP-LS-KA-24",
+    "district_lgd_code": 556,
+    "work_description": "Construction of Girls Sanitation Toilet Block at Govt Model Primary School Peenya",
+    "sanction_cost": 580000.0,
+    "recommendation_date": "2023-04-05",
+    "sanction_date": "2023-05-01",
+    "completion_date": "2023-08-15",
+    "latitude": 13.0286,
+    "longitude": 77.5196
+  },
+  {
+    "work_id": "PRJ-BN-2023-0412",
+    "mp_id": "MP-LS-KA-24",
+    "district_lgd_code": 556,
+    "work_description": "Supply of computers and setup of smart ICT lab at GHS 18th Cross Malleshwaram",
+    "sanction_cost": 920000.0,
+    "recommendation_date": "2023-02-01",
+    "sanction_date": "2023-02-28",
+    "completion_date": "2023-06-15",
+    "latitude": 13.0069,
+    "longitude": 77.5683
+  },
+  {
+    "work_id": "PRJ-BN-2023-0518",
+    "mp_id": "MP-LS-KA-24",
+    "district_lgd_code": 556,
+    "work_description": "Setup of Smart Computer Lab at St Anthony English Medium School RT Nagar",
+    "sanction_cost": 1150000.0,
+    "recommendation_date": "2023-01-20",
+    "sanction_date": "2023-04-18",
+    "completion_date": "2023-10-10",
+    "latitude": 13.0233,
+    "longitude": 77.5935
+  },
+  {
+    "work_id": "PRJ-BN-2023-0622",
+    "mp_id": "MP-LS-KA-24",
+    "district_lgd_code": 556,
+    "work_description": "Construction of 2 Additional Classrooms at GHS Jalahalli West",
+    "sanction_cost": 1480000.0,
+    "recommendation_date": "2023-01-05",
+    "sanction_date": "2023-04-28",
+    "completion_date": "2023-11-15",
+    "latitude": 13.0479,
+    "longitude": 77.5325
+  },
+  {
+    "work_id": "PRJ-BN-2023-0730",
+    "mp_id": "MP-LS-KA-24",
+    "district_lgd_code": 556,
+    "work_description": "Construction of 2 Additional Classrooms at GHS Vidyaranyapura",
+    "sanction_cost": 1420000.0,
+    "recommendation_date": "2023-03-01",
+    "sanction_date": "2023-03-25",
+    "completion_date": "2023-04-13",
+    "latitude": 13.0826,
+    "longitude": 77.5613
+  },
+  {
+    "work_id": "PRJ-BN-2023-0844",
+    "mp_id": "MP-LS-KA-24",
+    "district_lgd_code": 556,
+    "work_description": "Construction of Girls Sanitation Toilet Block at Govt Model High School Byatarayanapura",
+    "sanction_cost": 450000.0,
+    "recommendation_date": "2023-02-15",
+    "sanction_date": "2023-03-10",
+    "completion_date": "2023-07-20",
+    "latitude": 13.0643,
+    "longitude": 77.5922
+  }
+]

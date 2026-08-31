@@ -21,7 +21,7 @@ def get_district_analytics(db: Session = Depends(get_db)):
     avg_ipi = db.query(func.avg(InvestigationCase.ipi_score)).scalar() or 0.0
 
     return {
-        "district_name": "Kangra District (Himachal Pradesh)",
+        "district_name": "Bengaluru North Parliamentary Constituency (Karnataka)",
         "total_projects": total_projects,
         "total_expenditure": float(total_spend),
         "tier_distribution": {
